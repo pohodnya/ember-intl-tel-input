@@ -8,13 +8,14 @@ module.exports = {
     this._super.included(app);
 
     var config = app.options.intlTelInput;
+    if (!process.env.EMBER_CLI_FASTBOOT) {
+      if (config && true === config.includeUtilsScript) {
+        app.import(app.bowerDirectory + '/intl-tel-input/lib/libphonenumber/build/utils.js');
+      }
 
-    if (config && true === config.includeUtilsScript) {
-      app.import(app.bowerDirectory + '/intl-tel-input/lib/libphonenumber/build/utils.js');
+      app.import(app.bowerDirectory + '/intl-tel-input/build/js/intlTelInput.js');
+      app.import(app.bowerDirectory + '/intl-tel-input/build/img/flags.png', { destDir: 'assets/images' });
+      app.import(app.bowerDirectory + '/intl-tel-input/build/img/flags@2x.png', { destDir: 'assets/images' });
     }
-
-    app.import(app.bowerDirectory + '/intl-tel-input/build/js/intlTelInput.js');
-    app.import(app.bowerDirectory + '/intl-tel-input/build/img/flags.png', { destDir: 'assets/images' });
-    app.import(app.bowerDirectory + '/intl-tel-input/build/img/flags@2x.png', { destDir: 'assets/images' });
   },
 };
